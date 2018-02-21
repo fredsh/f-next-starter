@@ -1,0 +1,12 @@
+
+@import './foundation.scss';
+
+body {
+  background-color: #0000ff
+}
+
+#app{
+  margin: auto;
+  max-width: breakpoint('xlarge');
+  background-color: #555555
+}
