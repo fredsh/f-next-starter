@@ -2,11 +2,14 @@
 @import './foundation.scss';
 
 body {
-  background-color: #0000ff
+  background-color: #0000ff;
+  margin: 0 0 0 0;
 }
 
 #app{
   margin: auto;
-  max-width: breakpoint('xlarge');
-  background-color: #555555
+            // @include breakpoint(medium) {
+            //   max-width: 60%
+            // }
+  // background-color: #555555
 }

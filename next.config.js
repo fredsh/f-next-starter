@@ -1,26 +1,32 @@
 const webpack = require('webpack')
+const withSass = require('@zeit/next-sass')
 
 require('dotenv').config()
 
-module.exports = {
-  webpack: (config, { dev }) => {
-    config.module.rules.push(
-      {
-        test: /\.(css|scss)/,
-        loader: 'emit-file-loader',
-        options: {
-          name: 'dist/[path][name].[ext]'
-        }
-      },
-      {
-        test: /\.css$/,
-        loader: 'babel-loader!raw-loader'
-      },
-      {
-        test: /\.scss$/,
-        loader: 'babel-loader!raw-loader!sass-loader'
-      }
-    )
+module.exports = withSass({
+  webpack (config, options) {
+
+    if(options.dev) {
+			config.devtool = 'cheap-module-eval-source-map'
+		}
+
+    // config.module.rules.push(
+    //   {
+    //     test: /\.(css|scss)/,
+    //     loader: 'emit-file-loader',
+    //     options: {
+    //       name: 'dist/[path][name].[ext]'
+    //     }
+    //   },
+    //   {
+    //     test: /\.css$/,
+    //     loader: 'babel-loader!raw-loader'
+    //   },
+    //   {
+    //     test: /\.scss$/,
+    //     loader: 'babel-loader!raw-loader!sass-loader'
+    //   }
+    // )
     config.plugins.push(
       // If you want to export an environent variable from the server to the
       // client (so that you can write isomorphoic code), this is how you can 
@@ -33,4 +39,4 @@ module.exports = {
     )
     return config
   }
-}
+})

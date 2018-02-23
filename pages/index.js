@@ -13,6 +13,7 @@ import configureStore from 'store/configure'
 // Styling
 import Layout from 'components/layout'
 
+
 // Services
 import ClockService from 'services/clock'
 import Clock from 'components/Clock'
@@ -43,7 +44,7 @@ class IndexPage extends React.Component {
           <style jsx>{`
           div{
             background-color: #00FF00;
-            width: '1000px';
+            width: 90%;
             margin: auto;
 
             &.hello{
@@ -53,7 +54,7 @@ class IndexPage extends React.Component {
           }
         `}</style>
           <div className="hi">
-            <div className="hello" style={{ width: 500, height: 200 }}>
+            <div className="hello" style={{ width: '70%', height: 200 }}>
               hello
             </div>
           </div>

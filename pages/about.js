@@ -37,12 +37,9 @@ class AboutPage extends React.Component {
         <div>
           <style jsx>{`
           .hi{
-            background-color: yellow
-            width: 1100px
-            margin: auto
-          }
-          &.about{
-            background-color: red
+            background-color: yellow;
+            width: 1100px;
+            margin: auto;
           }
           `}</style>
           <div className="about" style={{ width: 500, height: 200 }}>
