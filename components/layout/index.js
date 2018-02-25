@@ -10,6 +10,7 @@ import css from "styled-jsx/css";
 
 // import style from 'styles/css/index.scss';
 
+import Icon, {Icons} from 'components/icons'
 
 const Header = (props) => {
   return (
@@ -110,7 +111,7 @@ class Layout extends React.Component {
             margin: auto;
           }
       `}</style>
-      <div id="app" className="layout grid-container">
+      <div id="app" className="layout">
         <Head>
           <meta charSet="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -119,6 +120,11 @@ class Layout extends React.Component {
           {/* <script src="https://cdn.polyfill.io/v2/polyfill.min.js"/> */}
         </Head>
           <Menu/>
+          <Icon icon={Icons.CLOUD_CHECK} color='#00ff00'
+            //wrapperPresets='square xborder'
+            size={32}
+            // iconScale={0.9}
+          />
           <div className="page">
           {page}
           </div>
