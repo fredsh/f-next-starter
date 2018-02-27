@@ -1,6 +1,6 @@
 // Sagas
-import { call, put, select, takeLatest, fork, all, take } from 'redux-saga/effects';
-import { delay } from 'redux-saga'
+import { call, put, select, takeLatest, fork, all, take, cancel } from 'redux-saga/effects';
+import { delay, eventChannel, END } from 'redux-saga'
 // Immutable
 import { fromJS } from 'immutable';
 // Reselect
@@ -17,7 +17,9 @@ const genConstant = (name) => `${appName}/${serviceName}/${name}`
  */
 export const clockConstants = {
   _INIT_CLOCK: genConstant('_INIT_CLOCK'),
-  TICK: genConstant('TICK')
+  TICK: genConstant('TICK'),
+  UPDATE: genConstant('UPDATE'),
+  STOP: genConstant('STOP')
 }
 
 
@@ -33,6 +35,12 @@ export const clockActions = {
       type: clockConstants.TICK,
       light: true, ts: Date.now()
     }
+  },
+  updateClock: () => {
+    return {
+      type: clockConstants.UPDATE,
+      light: true, ts: Date.now()
+    }
   }
 }
 
@@ -45,6 +53,7 @@ export const clockReducer = (state = initialState, action) => {
   switch (action.type) {
     case clockConstants._INIT_CLOCK:
     case clockConstants.TICK:
+    case clockConstants.UPDATE:
       return state.merge({
           lastUpdate: action.ts,
           light: !!action.light,
@@ -55,14 +64,31 @@ export const clockReducer = (state = initialState, action) => {
 }
 
 export const updateClockSaga = function*(action){
-  while (true){
-    yield delay(1000)
-    yield put(clockActions.startClock())
+  try {
+    while (true){
+      yield delay(800)
+      yield put(clockActions.updateClock())
+    }
+  }
+  finally {
+    console.log('out')
   }
 }
 
 export const clockRootSaga = function*(){
-  yield takeLatest(clockConstants.TICK, updateClockSaga)
+  try {
+    while (true) {
+      yield take(clockConstants.TICK)
+      const clockUpdater = yield fork(updateClockSaga)
+      /*
+       * use maybe to stop saga either on STOP or END (for changing page)
+       */
+      yield take.maybe(clockConstants.STOP)
+      yield cancel(clockUpdater)
+    }  
+  }
+  finally{
+  }
 }
 
 
@@ -86,8 +112,8 @@ const ClockService = {
   constants: clockConstants,
   actions: clockActions,
   reducer: clockReducer,
+  // saga: updateClockSaga,
   saga: clockRootSaga,
   selectors: clockSelectors
 }
-
 export default ClockService;

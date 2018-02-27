@@ -6,6 +6,11 @@ export {Icons} from './constants'
 
 const Icon = props => {
   const iconSize = props.size * props.iconScale;
+  const wrapperPresets = `
+    icon-wrapper
+    ${props.centered?'centered':''}
+    ${props.wrapperPresets}
+  `
   return (
     <React.Fragment>
       <style jsx>{`
@@ -22,6 +27,10 @@ const Icon = props => {
           background-color: ${props.backgroundColor};
           width:${props.size}px;
           height:${props.size}px;
+          // margin:auto;
+        }
+        .centered{
+          margin:auto;
         }
         @mixin wrapped{
           border: 2px ${props.borderColor};
@@ -42,7 +51,7 @@ const Icon = props => {
         }
       `}</style>
 
-      <div className={`icon-wrapper ${props.wrapperPresets}`}>
+      <div className={wrapperPresets}>
         <svg
           className="icon"
           width={`${iconSize}px`}

@@ -53,6 +53,7 @@ function configureStore(initialState) {
 
 
   store.runSagaTask = () => {
+    console.log('runSagaTask')
     store.sagaTask = sagaMiddleware.run(rootSaga)
   }
 

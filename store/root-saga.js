@@ -14,4 +14,4 @@ const rootSaga = function*(){
   ])
 }
 
-export default rootSaga;
+export default clockRootSaga;

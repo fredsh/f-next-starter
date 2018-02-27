@@ -27,13 +27,13 @@ class AboutPage extends React.Component {
   }
 
   componentDidMount() {
-    this.timer = this.props.startClock()
+    // this.timer = this.props.startClock()
   }
 
   render() {
     // console.log('>>>>>', this.props)
     return (
-      <Layout>
+      <Layout title='about'>
         <div>
           <style jsx>{`
           .hi{

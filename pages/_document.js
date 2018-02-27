@@ -4,6 +4,7 @@ import baseStyle from 'styles/css/index.scss';
 
 export default class MyDocument extends Document {
   render() {
+    // console.log('doc', this.props)
     return (
       <html>
         <Head>

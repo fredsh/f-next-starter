@@ -27,13 +27,21 @@ export const addCount = () => {
 class IndexPage extends React.Component {
   static getInitialProps({ store, isServer }) {
     store.dispatch(ClockService.actions.serverRenderClock(isServer))
-    store.dispatch(addCount())
+    // store.dispatch(addCount())
 
-    return { isServer, ooo:!isServer }
+    if (isServer)
+    store.dispatch({type:'@@redux-saga/CHANNEL_END'});
+    return { isServer }
   }
 
   componentDidMount() {
+    // if (this.props.isServer === false)
     this.timer = this.props.startClock()
+    // setInterval(() => this.props.startClock(), 2000)
+  }
+
+  componentWillReceiveProps(nextProps){
+    // console.log('rec', nextProps)
   }
 
   render() {
